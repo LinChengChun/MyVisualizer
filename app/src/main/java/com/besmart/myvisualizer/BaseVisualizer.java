@@ -39,6 +39,7 @@ abstract public class BaseVisualizer extends View {
     protected Paint paint;
     protected Visualizer visualizer;
     protected int color = Color.BLUE;
+    protected boolean isFFT = true;
 
     public BaseVisualizer(Context context) {
         super(context);
@@ -84,7 +85,10 @@ abstract public class BaseVisualizer extends View {
     public void setPlayer(int audioSessionId) {
         visualizer = new Visualizer(audioSessionId);
         visualizer.setEnabled(false);
-        visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+        int[] ranges = Visualizer.getCaptureSizeRange();
+        visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[0]);
+        Log.i("cclin", String.format("采样率区间：%s-%d-%d", Arrays.toString(ranges),
+                Visualizer.getMaxCaptureRate(), visualizer.getCaptureSize()));
 
         visualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
             @Override
@@ -97,20 +101,10 @@ abstract public class BaseVisualizer extends View {
             @Override
             public void onFftDataCapture(Visualizer visualizer, byte[] fft,
                                          int samplingRate) {
-                Log.e("cclin", Arrays.toString(fft));
                 BaseVisualizer.this.bytes = fft;
                 invalidate();
-//                byte[] model = new byte[fft.length / 2 + 1];
-//                model[0] = (byte) Math.abs(fft[1]);
-//                int j = 1;
-//
-//                for (int i = 2; i < 18;) {
-//                    model[j] = (byte) Math.hypot(fft[i], fft[i + 1]);
-//                    i += 2;
-//                    j++;
-//                }
             }
-        }, Visualizer.getMaxCaptureRate() / 2, false, true);
+        }, Visualizer.getMaxCaptureRate() / 2, !isFFT, isFFT);
 
         visualizer.setEnabled(true);
     }

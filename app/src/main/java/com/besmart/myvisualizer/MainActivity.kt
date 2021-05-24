@@ -59,7 +59,7 @@ open class MainActivity : AppCompatActivity() {
     private lateinit var barVisualizer: BarVisualizer
 
     private fun setPlayer() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.red)
+        mediaPlayer = MediaPlayer.create(this, R.raw.yedediqizhang)
         mediaPlayer?.isLooping = false
 
         barVisualizer = findViewById(R.id.visualizer)
