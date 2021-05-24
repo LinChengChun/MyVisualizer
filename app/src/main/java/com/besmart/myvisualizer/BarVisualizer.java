@@ -98,7 +98,7 @@ public class BarVisualizer extends BaseVisualizer {
                 phases[k] = (float) Math.atan2(fft[i + 1], fft[i]);
 //                Log.i("cclin", String.format("第 %d 个点的值 %f, %f", k, magnitudes[k], phases[k]));
 
-                float barX = (k * barWidth) + barWidth / 2;
+                float barX = (k * barWidth) + 0;
                 canvas.drawLine(barX, getHeight(), barX, (1 - magnitudes[k] / 20.0f) * getHeight(), paint);
             }
             float barX = (n / 2 * barWidth) + 0;
