@@ -40,6 +40,11 @@ abstract public class BaseVisualizer extends View {
     protected Visualizer visualizer;
     protected int color = Color.BLUE;
     protected boolean isFFT = true;
+    protected int samplingRate = 0;
+
+    public void setFFT(boolean FFT) {
+        isFFT = FFT;
+    }
 
     public BaseVisualizer(Context context) {
         super(context);
@@ -95,6 +100,7 @@ abstract public class BaseVisualizer extends View {
             public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes,
                                               int samplingRate) {
                 BaseVisualizer.this.bytes = bytes;
+                BaseVisualizer.this.samplingRate = samplingRate;
                 invalidate();
             }
 
@@ -102,6 +108,7 @@ abstract public class BaseVisualizer extends View {
             public void onFftDataCapture(Visualizer visualizer, byte[] fft,
                                          int samplingRate) {
                 BaseVisualizer.this.bytes = fft;
+                BaseVisualizer.this.samplingRate = samplingRate;
                 invalidate();
             }
         }, Visualizer.getMaxCaptureRate() / 2, !isFFT, isFFT);

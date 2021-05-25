@@ -73,7 +73,7 @@ open class MainActivity : AppCompatActivity() {
 
         // define custom number of bars you want in the visualizer between (10 - 256).
         barVisualizer.setDensity(50F)
-
+        barVisualizer.setFFT(false)
         // Set your media player to the visualizer.
 
         // Set your media player to the visualizer.
